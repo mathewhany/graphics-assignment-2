@@ -3,6 +3,10 @@
 
 void GameScene::draw() {
     for (auto &gameObject: gameObjects) {
+        if (!gameObject->isShowing()) {
+            continue;
+        }
+
         glPushMatrix();
         glTranslatef(gameObject->getPosition().getX(),
                      gameObject->getPosition().getY(),
@@ -15,6 +19,20 @@ void GameScene::draw() {
                  gameObject->getScale().getZ());
         gameObject->draw();
         glPopMatrix();
+
+//        glPushMatrix();
+//        glTranslatef(gameObject->getPosition().getX(),
+//                     gameObject->getPosition().getY(),
+//                     gameObject->getPosition().getZ());
+//        glTranslatef(0,
+//                     gameObject->getSize().getY() / 2,
+//                     0);
+//        glScaled(gameObject->getSize().getX(),
+//                 gameObject->getSize().getY(),
+//                 gameObject->getSize().getZ());
+//        glutWireCube(1);
+//        glPopMatrix();
+
     }
 }
 
@@ -33,5 +51,13 @@ void GameScene::onSpecialKeyPressed(int key, int mouseX, int mouseY) {
 void GameScene::onIdle() {
     for (auto &gameObject: gameObjects) {
         gameObject->onIdle();
+
+        for (auto &otherGameObject: gameObjects) {
+            if (gameObject != otherGameObject) {
+                if (gameObject->isColliding(*otherGameObject)) {
+                    gameObject->onCollision(otherGameObject);
+                }
+            }
+        }
     }
 }

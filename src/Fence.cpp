@@ -2,19 +2,9 @@
 #include "Fence.h"
 #include "utils.h"
 
-Fence::Fence(const Vector3f &position, double scale, bool alongX)
-        : GameObject(position, {0, 0, static_cast<float>(units * 3)}),
-          units(scale),
-          alongX(alongX) {}
-
 void Fence::draw() {
     glPushMatrix();
-
-    if (alongX) {
-        glRotated(90, 0, 1, 0);
-    }
-
-    glScaled(1, 1, units);
+    glTranslatef(0, 0.5, 0);
 
     glPushMatrix();
     glTranslatef(0, 1.5, -20);

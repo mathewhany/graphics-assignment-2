@@ -3,8 +3,6 @@
 #include "FerrisWheel.h"
 #include "utils.h"
 
-FerrisWheel::FerrisWheel(Vector3f position) : GameObject(position, {10, 20, 10}) {}
-
 void drawStand() {
     glPushMatrix();
     glTranslated(5, 1, 0);
@@ -28,6 +26,8 @@ void drawStand() {
 }
 
 void FerrisWheel::draw() {
+    glPushMatrix();
+    glTranslated(0, 6, 0);
     glPushMatrix();
     glTranslated(0, 0, 7);
     drawStand();
@@ -98,29 +98,7 @@ void FerrisWheel::draw() {
 
     glPopMatrix();
 
-//    glPushMatrix();
-//    glTranslated(0, 0, 4);
-//    for (int i = 0; i < 8; i++) {
-//        glPushMatrix();
-//        glRotated(45 * i, 0, 0, 1);
-//        glTranslated(0, 10, 0);
-//        glScaled(8, 0.5, 0.5);
-//        glutSolidCube(1);
-//        glPopMatrix();
-//    }
-//    glPopMatrix();
-//
-//    glPushMatrix();
-//    glTranslated(0, 0, -4);
-//    for (int i = 0; i < 8; i++) {
-//        glPushMatrix();
-//        glRotated(45 * i, 0, 0, 1);
-//        glTranslated(0, 10, 0);
-//        glScaled(8, 0.5, 0.5);
-//        glutSolidCube(1);
-//        glPopMatrix();
-//    }
-//    glPopMatrix();
+    glPopMatrix();
 }
 
 void FerrisWheel::onKeyPressed(unsigned char key, int mouseX, int mouseY) {

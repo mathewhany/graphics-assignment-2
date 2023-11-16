@@ -2,9 +2,6 @@
 #include "Seesaw.h"
 #include "utils.h"
 
-Seesaw::Seesaw(Vector3f position)
-        : GameObject(position, {10, 1, 1}) {}
-
 void drawSeesawStand() {
     color(0x0A8AFF);
     glPushMatrix();
@@ -55,11 +52,12 @@ void drawSeesawChair() {
 }
 
 void Seesaw::draw() {
+    glPushMatrix();
+    glTranslated(0, 1.25, 0);
 
     glPushMatrix();
     glTranslated(0, 0.75, 0);
     glRotated(angle, 0, 0, 1);
-
 
     glPushMatrix();
     glTranslated(9, 0.55, 0);
@@ -78,10 +76,6 @@ void Seesaw::draw() {
     glutSolidCube(1);
     glPopMatrix();
 
-//    glPushMatrix();
-//    glScaled(0.5, 0.5, 5);
-//    glutSolidCube(1);
-//    glPopMatrix();
     glPopMatrix();
 
     glPushMatrix();
@@ -93,6 +87,8 @@ void Seesaw::draw() {
     glPushMatrix();
     glTranslated(0, 0, -2.25);
     drawSeesawStand();
+    glPopMatrix();
+
     glPopMatrix();
 }
 

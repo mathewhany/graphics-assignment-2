@@ -8,8 +8,6 @@ class FerrisWheel : public GameObject {
     bool shouldMove = false;
     double rotation = 0;
 public:
-    explicit FerrisWheel(Vector3f position);
-
     void draw() override;
 
     void onIdle() override;

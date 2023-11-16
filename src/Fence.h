@@ -5,11 +5,7 @@
 #include "GameObject.h"
 
 class Fence : public GameObject {
-    double units;
-    bool alongX;
 public:
-    Fence(const Vector3f &position, double units, bool alongX);
-
     void draw() override;
 };
 

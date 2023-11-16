@@ -9,8 +9,6 @@ class Seesaw : public GameObject {
     double angle = 0;
     double angleStep = 0.5;
 public:
-    Seesaw(Vector3f position);
-
     void draw() override;
 
     void onKeyPressed(unsigned char key, int mouseX, int mouseY) override;

@@ -1,6 +1,8 @@
 #include <cmath>
 #include "Vector3f.h"
 
+#define DEG2RAD(a) (a * 0.0174532925)
+
 Vector3f::Vector3f(float x, float y, float z)
         : x(x), y(y), z(z) {}
 
@@ -53,5 +55,14 @@ float Vector3f::length() const {
 
 float Vector3f::operator[](int i) const {
     return i == 0 ? x : i == 1 ? y : z;
+}
+
+Vector3f Vector3f::rotateY(double angle) {
+
+    return {
+            (float) (x * std::cos(DEG2RAD(angle)) + z * std::sin(DEG2RAD(angle))),
+            y,
+            (float) (z * std::cos(DEG2RAD(angle)) - x * std::sin(DEG2RAD(angle)))
+    };
 }
 

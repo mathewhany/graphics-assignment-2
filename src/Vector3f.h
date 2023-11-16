@@ -33,6 +33,8 @@ public:
     [[nodiscard]] Vector3f cross(Vector3f v) const;
 
     [[nodiscard]] float length() const;
+
+    Vector3f rotateY(double angle);
 };
 
 

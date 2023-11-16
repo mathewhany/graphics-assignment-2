@@ -1,12 +1,14 @@
 #include <GLUT/glut.h>
+#include <iostream>
 #include "Player.h"
 #include "utils.h"
+#include "Goal.h"
 
-Player::Player(Vector3f position)
-        : GameObject(position, {10, 20, 10}) {}
+Player::Player() : GameObject({3, 10, 3}) {}
 
 void Player::draw() {
     glPushMatrix();
+    glTranslatef(0, 5, 0);
     glScaled(0.2, 0.2, 0.2);
 
     // Hat
@@ -35,6 +37,21 @@ void Player::draw() {
     glScaled(1, 1.1, 1);
     color(255, 224, 164);
     glutSolidSphere(5, 255, 255);
+    glPopMatrix();
+
+    // Eyes
+    glPushMatrix();
+    glTranslatef(-1.5, 13, -4.5);
+    glScaled(0.5, 0.5, 0.5);
+    color(0, 0, 0);
+    glutSolidSphere(1, 255, 255);
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(1.5, 13, -4.5);
+    glScaled(0.5, 0.5, 0.5);
+    color(0, 0, 0);
+    glutSolidSphere(1, 255, 255);
     glPopMatrix();
 
     // Body
@@ -92,41 +109,28 @@ void Player::draw() {
 void Player::onSpecialKeyPressed(int key, int mouseX, int mouseY) {
     switch (key) {
         case GLUT_KEY_UP:
-            if (position.getZ() < -27.5) {
-                break;
-            }
-            smoothMoveBy({0, 0, -1});
-            smoothRotateTo({0, 0, 0});
+            smoothMoveBy(direction);
             break;
         case GLUT_KEY_DOWN:
-            if (position.getZ() > 27.5) {
-                break;
-            }
-            smoothMoveBy({0, 0, 1});
-            smoothRotateTo({0, 180, 0});
+            smoothMoveBy(direction * -1);
             break;
         case GLUT_KEY_LEFT:
-            if (position.getX() < -27.5) {
-                break;
-            }
-            smoothMoveBy({-1, 0, 0});
-            smoothRotateTo({0, 90, 0});
+            direction = direction.rotateY(10);
+            smoothRotateBy({0, 10, 0});
             break;
         case GLUT_KEY_RIGHT:
-            if (position.getX() > 27.5) {
-                break;
-            }
-            smoothMoveBy({1, 0, 0});
-            smoothRotateTo({0, -90, 0});
+            direction = direction.rotateY(-10);
+            smoothRotateBy({0, -10, 0});
             break;
         default:
             break;
     }
 }
 
-void Player::onIdle() {
-    GameObject::onIdle();
-//    rotateBy({0, 1, 0});
+void Player::onCollision(GameObject *&pObject) {
+    auto *goal = dynamic_cast<Goal *>(pObject);
+
+    if (goal != nullptr) {
+        goal->setShowing(false);
+    }
 }
-
-

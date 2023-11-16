@@ -5,18 +5,18 @@
 
 class CollisionBox {
 protected:
-    Vector3f center;
+    Vector3f position;
     Vector3f size;
 public:
-    CollisionBox(const Vector3f &center, const Vector3f &size);
+    CollisionBox(const Vector3f &position, const Vector3f &size);
 
-    [[nodiscard]] Vector3f getStart() const;
+    [[nodiscard]] Vector3f getPosition() const;
 
     [[nodiscard]] Vector3f getSize() const;
 
     [[nodiscard]] Vector3f getEnd() const;
 
-    [[nodiscard]] bool isColliding(CollisionBox other);
+    [[nodiscard]] bool isColliding(const CollisionBox &other);
 };
 
 

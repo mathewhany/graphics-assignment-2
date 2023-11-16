@@ -1,19 +1,12 @@
 #include <iostream>
 #include "GameObject.h"
 
-GameObject::GameObject(Vector3f position, Vector3f size, Vector3f scale)
-        : position(position),
-          targetPosition(position),
-          size(size),
-          scale(scale),
-          CollisionBox(position - size / 2, size) {}
-
-Vector3f GameObject::getPosition() const { return position; }
-
-Vector3f GameObject::getSize() const { return size; }
+GameObject::GameObject(Vector3f collisionBoxSize)
+        : CollisionBox({0, 0, 0}, collisionBoxSize) {}
 
 void GameObject::setPosition(const Vector3f &newPosition) {
     position = newPosition;
+    targetPosition = newPosition;
 }
 
 void GameObject::moveBy(const Vector3f &translation) {
@@ -80,11 +73,16 @@ const Vector3f &GameObject::getAngle() const {
 }
 
 void GameObject::setAngle(const Vector3f &newAngle) {
-    this->angle = newAngle;
+    angle = newAngle;
+    targetAngle = newAngle;
 }
 
 void GameObject::smoothRotateTo(const Vector3f &newAngle) {
     targetAngle = newAngle;
+}
+
+void GameObject::smoothRotateBy(const Vector3f &newAngle) {
+    targetAngle = targetAngle + newAngle;
 }
 
 void GameObject::rotateBy(const Vector3f &rotationAngle) {
@@ -95,9 +93,34 @@ const Vector3f &GameObject::getScale() const {
     return scale;
 }
 
-void GameObject::setScale(const Vector3f &scale) {
-    GameObject::scale = scale;
+void GameObject::setScale(const Vector3f &newScale) {
+    GameObject::scale = newScale;
 }
 
+GameObject *GameObject::withScale(const Vector3f &newScale) {
+    setScale(newScale);
+    return this;
+}
 
+GameObject *GameObject::withPosition(const Vector3f &newPosition) {
+    setPosition(newPosition);
+    return this;
+}
+
+GameObject *GameObject::withAngle(const Vector3f &newAngle) {
+    setAngle(newAngle);
+    return this;
+}
+
+void GameObject::onCollision(GameObject *&pObject) {
+
+}
+
+bool GameObject::isShowing() const {
+    return showing;
+}
+
+void GameObject::setShowing(bool newShowing) {
+    showing = newShowing;
+}
 

@@ -6,24 +6,22 @@
 
 class GameObject : public CollisionBox {
 protected:
-    Vector3f targetPosition;
-    Vector3f position;
+    Vector3f targetPosition{0, 0, 0};
 
     Vector3f angle{0, 0, 0};
     Vector3f targetAngle{0, 0, 0};
 
-    Vector3f size;
-    Vector3f scale;
+    Vector3f scale{1, 1, 1};
+
+    bool showing = true;
 public:
-    explicit GameObject(Vector3f position, Vector3f size, Vector3f scale = {1, 1, 1});
+
+public:
+    explicit GameObject(Vector3f collisionBoxSize = {0, 0, 0});
 
     virtual ~GameObject() = default;
 
     virtual void draw() = 0;
-
-    [[nodiscard]] Vector3f getPosition() const;
-
-    [[nodiscard]] Vector3f getSize() const;
 
     void setPosition(const Vector3f &newPosition);
 
@@ -45,9 +43,23 @@ public:
 
     void smoothRotateTo(const Vector3f &newAngle);
 
-    const Vector3f &getScale() const;
+    [[nodiscard]] const Vector3f &getScale() const;
 
-    void setScale(const Vector3f &scale);
+    void setScale(const Vector3f &newScale);
+
+    GameObject *withScale(const Vector3f &newScale);
+
+    GameObject *withPosition(const Vector3f &newPosition);
+
+    GameObject *withAngle(const Vector3f &newAngle);
+
+    void smoothRotateBy(const Vector3f &newAngle);
+
+    virtual void onCollision(GameObject *&pObject);
+
+    [[nodiscard]] bool isShowing() const;
+
+    void setShowing(bool newShowing);
 };
 
 

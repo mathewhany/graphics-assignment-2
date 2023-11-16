@@ -5,32 +5,74 @@
 #include "FerrisWheel.h"
 #include "Seesaw.h"
 #include "Lamp.h"
+#include "Swing.h"
+#include "Roller.h"
+#include "Goal.h"
 
 MainScene::MainScene() {
-    auto *player = new Player({25, 5, 25});
-    gameObjects.push_back(player);
+    gameObjects.push_back(
+            (new Player)
+                ->withPosition({0, 0, 30})
+    );
 
-    auto *ground = new Ground({0, 0, 0});
-    ground->setScale({1.25, 1, 1.25});
-    gameObjects.push_back(ground);
+    gameObjects.push_back(
+            (new Ground)
+                    ->withScale({10, -1, 10})
+    );
 
-    auto *ferrisWheel = new FerrisWheel({-10, 6, -10});
-    ferrisWheel->setScale({0.8, 0.8, 0.8});
-    gameObjects.push_back(ferrisWheel);
+    gameObjects.push_back(
+            (new FerrisWheel)
+                    ->withPosition({-10, 0, -10})
+                    ->withScale({0.8, 0.8, 0.8})
+    );
 
-    auto *topRight = new Fence({0, 0.5, -30}, 1.4, true);
-    gameObjects.push_back(topRight);
+    gameObjects.push_back(
+            (new Fence)
+                    ->withPosition({0, 0, -30})
+                    ->withScale({1.4, 1.4, 1.4})
+                    ->withAngle({0, 90, 0})
+    );
 
-    auto *topLeft = new Fence({-30, 0.5, 0}, 1.4, false);
-    gameObjects.push_back(topLeft);
+    gameObjects.push_back(
+            (new Fence)
+                    ->withPosition({30, 0, 0})
+                    ->withScale({1.4, 1.4, 1.4})
+    );
 
-    auto *bottomRight = new Fence({30, 0.5, 0}, 1.4, false);
-    gameObjects.push_back(bottomRight);
+    gameObjects.push_back(
+            (new Fence)
+                    ->withPosition({-30, 0, 0})
+                    ->withScale({1.4, 1.4, 1.4})
+    );
 
-    auto *seesaw = new Seesaw({15, 1.25, -10});
-    gameObjects.push_back(seesaw);
+    gameObjects.push_back(
+            (new Seesaw)
+                    ->withPosition({20, 0, 10})
+                    ->withAngle({0, 45, 0})
+    );
 
-    auto *lamp = new Lamp({-25, 10, 25});
-    lamp->setScale({0.8, 0.8, 0.8});
-    gameObjects.push_back(lamp);
+    gameObjects.push_back(
+            (new Lamp)
+                    ->withPosition({-25, 0, 25})
+                    ->withScale({0.8, 0.8, 0.8})
+    );
+
+    gameObjects.push_back(
+            (new Swing)
+                    ->withPosition({25, 0, 25})
+                    ->withScale({0.8, 0.8, 0.8})
+                    ->withAngle({0, 45, 0})
+    );
+
+    gameObjects.push_back(
+            (new Roller)
+                    ->withPosition({-15, 0, 10})
+                    ->withScale({0.8, 0.8, 0.8})
+    );
+
+    gameObjects.push_back(
+            (new Goal)
+                ->withScale({0.8, 0.8, 0.8})
+                ->withPosition({25, 0, -20})
+    );
 }

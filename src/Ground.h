@@ -5,7 +5,6 @@
 
 class Ground : public GameObject {
 public:
-explicit Ground(Vector3f position);
     void draw() override;
 };
 

@@ -11,8 +11,6 @@ class Lamp : public GameObject {
     double lampScale = 0;
     double scaleAnimationSpeed = 0.01;
 public:
-    Lamp(Vector3f position);
-
     void draw() override;
 
     void onKeyPressed(unsigned char key, int mouseX, int mouseY) override;

@@ -2,11 +2,9 @@
 #include "Ground.h"
 #include "utils.h"
 
-Ground::Ground(Vector3f position)
-        : GameObject(position, {100, 1, 100}) {}
-
 void Ground::draw() {
     glPushMatrix();
+    glTranslatef(0, 0.5, 0);
     glScaled(50, 1, 50);
     color(27, 105, 0);
     glutSolidCube(1);

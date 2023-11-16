@@ -74,36 +74,28 @@ void Game::init(int argc, char **argv) const {
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHT1);
+    glEnable(GL_LIGHT2);
+    glEnable(GL_LIGHT3);
     glEnable(GL_NORMALIZE);
     glEnable(GL_COLOR_MATERIAL);
 
     setupLights();
 
-    glShadeModel(GL_SMOOTH);
+    glShadeModel(GL_FLAT);
 }
 
 void Game::setupLights() const {
-    GLfloat ambient[] = {1.0f, 1.0f, 1.0f, 1.0f};
-    GLfloat diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
-    GLfloat specular[] = {0.1f, 0.1f, 0.1, 1.0f};
-//    GLfloat shininess[] = {1};
+    // Light 0
+    GLfloat light0Position[] = {-1, -1, -1, 1};
+    GLfloat light0Ambient[] = {0.2, 0.2, 0.2, 1};
+    GLfloat light0Diffuse[] = {0.7, 0.7, 0.7, 1};
+    GLfloat light0Specular[] = {0.1, 0.1, 0.1, 1};
 
-    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
-//    glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+    glLightfv(GL_LIGHT0, GL_POSITION, light0Position);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light0Ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light0Diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light0Specular);
 
-    GLfloat lightIntensity1[] = {1.0f, 1.0f, 1.0f, 1.0f};
-    GLfloat lightPosition1[] = {20, 10, 20, 0.0f};
-
-    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition1);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, lightIntensity1);
-
-    GLfloat lightIntensity2[] = {1.0f, 1.0f, 1.0f, 1.0f};
-    GLfloat lightPosition2[] = {-20, 10, -20, 0.0f};
-
-    glLightfv(GL_LIGHT1, GL_POSITION, lightPosition2);
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, lightIntensity2);
 }
 
 void Game::onIdle() {

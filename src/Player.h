@@ -4,14 +4,15 @@
 #include "GameObject.h"
 
 class Player : public GameObject {
+    Vector3f direction{0, 0, -1};
 public:
-    explicit Player(Vector3f position);
+    Player();
 
     void draw() override;
 
-    void onIdle() override;
-
     void onSpecialKeyPressed(int key, int mouseX, int mouseY) override;
+
+    void onCollision(GameObject *&pObject) override;
 };
 
 
