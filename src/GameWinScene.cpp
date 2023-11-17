@@ -1,13 +1,11 @@
-#include "GameWinScene.h"
+#include <GLUT/glut.h>
+#include "GameWin.h"
 #include "utils.h"
 
-GameWinScene::GameWinScene() {
-    camera.setEye({0, 0, 100});
-    camera.setUp({0, 1, 0});
-    camera.setCenter({0, 0, 0});
-}
-
-void GameWinScene::draw() {
+void GameWin::draw() {
+    glPushMatrix();
+    glTranslated(-5, 0, 0);
     drawText("You win!", 0, 0, 0x000000);
+    glPopMatrix();
 }
 

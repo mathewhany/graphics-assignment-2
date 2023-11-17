@@ -2,6 +2,7 @@
 #include <vector>
 #include "FerrisWheel.h"
 #include "utils.h"
+#include "Sounds.h"
 
 FerrisWheel::FerrisWheel()
         : rotation({0, 360, 1}),
@@ -107,6 +108,7 @@ void FerrisWheel::draw() {
 
 void FerrisWheel::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
     if (key == '5') {
+        Sounds::togglePlay(Sounds::wheelSound);
         rotation.toggle();
     }
 }

@@ -111,8 +111,9 @@ bool GameObject::isShowing() const {
     return showing;
 }
 
-void GameObject::setShowing(bool newShowing) {
+GameObject * GameObject::setShowing(bool newShowing) {
     showing = newShowing;
+    return this;
 }
 
 void GameObject::draw() {

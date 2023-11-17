@@ -5,8 +5,11 @@
 #include "GameScene.h"
 
 class GameScene;
+class GameSettings;
 
 class Game {
+    int score = 0;
+
     GameScene *scene{};
     GameSettings *gameSettings;
     static Game *instance;
@@ -32,6 +35,12 @@ public:
     [[nodiscard]] GameSettings *getGameSettings() const;
 
     static Game *getInstance(GameSettings *settings = nullptr);
+
+    [[nodiscard]] GameScene *getScene() const;
+
+    void setScore(int score);
+
+    int getScore() const;
 };
 
 

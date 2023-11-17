@@ -1,6 +1,7 @@
 #include <GLUT/GLUT.h>
 #include "Lamp.h"
 #include "utils.h"
+#include "Sounds.h"
 
 Lamp::Lamp() : GameObject({2, 15, 2}) {}
 
@@ -34,6 +35,7 @@ void Lamp::draw() {
 
 void Lamp::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
     if (key == '4') {
+        Sounds::togglePlay(Sounds::lampSound);
         colorBrightness.toggle();
         lampScale.toggle();
     }

@@ -1,6 +1,7 @@
 #include "utils.h"
 #include <GLUT/glut.h>
 
+
 void color(long hex) {
     short r = (hex >> 16) & 0xFF;
     short g = (hex >> 8) & 0xFF;

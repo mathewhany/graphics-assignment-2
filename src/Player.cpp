@@ -3,7 +3,9 @@
 #include "utils.h"
 #include "Goal.h"
 #include "Game.h"
-#include "GameWinScene.h"
+#include "GameWin.h"
+#include "Sounds.h"
+#include "GameTimer.h"
 
 Player::Player() : GameObject({3, 10, 3}) {}
 
@@ -136,7 +138,17 @@ void Player::onCollision(GameObject *&pObject) {
     if (goal != nullptr) {
         goal->setShowing(false);
 
-        Game::getInstance()->setScene(new GameWinScene());
+        Sounds::resetAndPlay(Sounds::buttonClick);
+
+        Game *game = Game::getInstance();
+        game->setScore(game->getScore() + 1);
+
+        if (game->getScore() == 3) {
+            Sounds::resetAndPlay(Sounds::gameWinTheme);
+
+            Game::getInstance()->getScene()->getGameObjectByTag<GameTimer>("game-time")->setIsRunning(false);
+            Game::getInstance()->getScene()->getGameObjectByTag<GameWin>("game-win")->setShowing(true);
+        }
     }
 
     switch (latestMovement) {

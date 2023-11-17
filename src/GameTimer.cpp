@@ -2,9 +2,19 @@
 #include "utils.h"
 
 void GameTimer::draw() {
-    drawText(std::to_string(time) + "/60", 0, 0, 0x00000);
+    drawText(std::to_string(time) + "/60", 0, 0, 0xFFFFFF);
 }
 
 void GameTimer::onTimer(int value) {
-    time = value;
+    if (running) {
+        time = value;
+    }
+}
+
+bool GameTimer::isRunning() const {
+    return running;
+}
+
+void GameTimer::setIsRunning(bool isRunning) {
+    GameTimer::running = isRunning;
 }

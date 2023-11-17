@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include "MainScene.h"
 #include "Game.h"
+#include "utils.h"
 
 GameSettings *gameSettings = GameSettingsBuilder()
         .setWindowWidth(1024)

@@ -6,10 +6,15 @@
 
 class GameTimer : public GameObject {
     int time;
+    bool running = true;
 public:
     void draw() override;
 
     void onTimer(int value) override;
+
+    bool isRunning() const;
+
+    void setIsRunning(bool isRunning);
 };
 
 

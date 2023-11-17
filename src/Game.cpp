@@ -1,10 +1,13 @@
 #include <GLUT/glut.h>
 #include <cstdlib>
 #include "Game.h"
+#include "Sounds.h"
 
 #define GLUT_KEY_ESCAPE 27
 
-Game::Game(GameSettings *gameSettings) : gameSettings(gameSettings) {}
+Game::Game(GameSettings *gameSettings) : gameSettings(gameSettings) {
+    Sounds::loadSounds();
+}
 
 void Game::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -15,6 +18,7 @@ void Game::draw() {
 }
 
 void Game::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
+//    Sounds::resetAndPlay(Sounds::buttonClick);
     scene->onKeyPressed(tolower(key), mouseX, mouseY);
 
     if (key == GLUT_KEY_ESCAPE) {
@@ -25,14 +29,12 @@ void Game::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
 }
 
 void Game::onSpecialKeyPressed(int key, int mouseX, int mouseY) {
+//    Sounds::resetAndPlay(Sounds::buttonClick);
     scene->onSpecialKeyPressed(key, mouseX, mouseY);
     glutPostRedisplay();
 }
 
-//template<class InitialScene>
 void Game::init(int argc, char **argv) const {
-//    setScene<InitialScene>();
-
     glutInit(&argc, argv);
 
     glutInitWindowSize(gameSettings->getWindowWidth(), gameSettings->getWindowHeight());
@@ -77,6 +79,18 @@ Game *Game::getInstance(GameSettings *settings) {
     }
 
     return instance;
+}
+
+GameScene *Game::getScene() const {
+    return scene;
+}
+
+int Game::getScore() const {
+    return score;
+}
+
+void Game::setScore(int newScore) {
+    score = newScore;
 }
 
 

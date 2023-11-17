@@ -3,6 +3,7 @@
 
 #include "Vector3f.h"
 #include "CollisionBox.h"
+#include "Game.h"
 
 class GameObject : public CollisionBox {
 protected:
@@ -53,7 +54,7 @@ public:
 
     [[nodiscard]] bool isShowing() const;
 
-    void setShowing(bool newShowing);
+    GameObject * setShowing(bool newShowing);
 
     virtual void onTimer(int value);
 };

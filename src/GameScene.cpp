@@ -9,7 +9,7 @@ GameScene::GameScene()
         Game::getInstance()->getGameSettings()->getAspectRatio()) {}
 
 void GameScene::draw() {
-    for (auto &gameObject: gameObjects) {
+    for (auto &[_, gameObject]: gameObjects) {
         if (!gameObject->isShowing()) {
             continue;
         }
@@ -47,7 +47,7 @@ void GameScene::draw() {
 }
 
 void GameScene::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
-    for (auto &gameObject: gameObjects) {
+    for (auto &[_, gameObject]: gameObjects) {
         gameObject->onKeyPressed(key, mouseX, mouseY);
     }
 
@@ -108,17 +108,19 @@ void GameScene::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
 }
 
 void GameScene::onSpecialKeyPressed(int key, int mouseX, int mouseY) {
-    for (auto &gameObject: gameObjects) {
+    for (auto &[_, gameObject]: gameObjects) {
         gameObject->onSpecialKeyPressed(key, mouseX, mouseY);
     }
 }
 
 void GameScene::onIdle() {
-    for (auto &gameObject: gameObjects) {
+    for (auto &[_, gameObject]: gameObjects) {
         gameObject->onIdle();
 
-        for (auto &otherGameObject: gameObjects) {
-            if (gameObject != otherGameObject) {
+        if (!gameObject->isShowing()) continue;
+
+        for (auto &[_, otherGameObject]: gameObjects) {
+            if (gameObject != otherGameObject && otherGameObject->isShowing()) {
                 if (gameObject->isColliding(*otherGameObject)) {
                     gameObject->onCollision(otherGameObject);
                 }
@@ -149,7 +151,7 @@ void GameScene::setupLights() {
 }
 
 void GameScene::onTimer(int value) {
-    for (auto &gameObject: gameObjects) {
+    for (auto &[_, gameObject]: gameObjects) {
         gameObject->onTimer(value);
     }
 }

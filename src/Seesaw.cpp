@@ -1,6 +1,7 @@
 #include <GLUT/glut.h>
 #include "Seesaw.h"
 #include "utils.h"
+#include "Sounds.h"
 
 Seesaw::Seesaw()
         : GameObject({22, 5, 4}),
@@ -98,6 +99,7 @@ void Seesaw::draw() {
 
 void Seesaw::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
     if (key == '2') {
+        Sounds::togglePlay(Sounds::seeSawSound);
         angle.toggle();
     }
 }

@@ -1,6 +1,7 @@
 #include <GLUT/glut.h>
 #include "Swing.h"
 #include "utils.h"
+#include "Sounds.h"
 
 
 Swing::Swing()
@@ -66,6 +67,7 @@ void Swing::draw() {
 
 void Swing::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
     if (key == '3') {
+        Sounds::togglePlay(Sounds::swingSound);
         swingAngle.toggle();
     }
 }

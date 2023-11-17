@@ -2,6 +2,7 @@
 #define GRAPHICSASSIGNMENT2_GAMESCENE_H
 
 #include <vector>
+#include <string>
 #include "GameObject.h"
 #include "Camera.h"
 #include "GameSettings.h"
@@ -9,10 +10,12 @@
 
 class Game;
 
+class GameObject;
+
 class GameScene {
 protected:
     Camera camera;
-    std::vector<GameObject *> gameObjects;
+    std::unordered_map<std::string, GameObject *> gameObjects;
 public:
     GameScene();
 
@@ -31,6 +34,15 @@ public:
     [[nodiscard]] const Camera &getCamera() const;
 
     virtual void onTimer(int value);
+
+    template<class T>
+    T *getGameObjectByTag(const std::string &tag) const {
+        if (gameObjects.find(tag) == gameObjects.end()) {
+            return nullptr;
+        }
+
+        return dynamic_cast<T *>(gameObjects.at(tag));
+    }
 };
 
 

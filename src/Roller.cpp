@@ -1,6 +1,7 @@
 #include <GLUT/glut.h>
 #include "Roller.h"
 #include "utils.h"
+#include "Sounds.h"
 
 Roller::Roller() : GameObject({20, 3, 20}) {}
 
@@ -61,6 +62,7 @@ void Roller::draw() {
 
 void Roller::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
     if (key == '1') {
+        Sounds::togglePlay(Sounds::rollerSound);
         rotation.toggle();
     }
 }
