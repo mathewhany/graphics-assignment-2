@@ -2,6 +2,8 @@
 #include "Roller.h"
 #include "utils.h"
 
+Roller::Roller() : GameObject({20, 3, 20}) {}
+
 void drawRollerChair() {
     color(0xFF443C);
     glPushMatrix();
@@ -58,7 +60,7 @@ void Roller::draw() {
 }
 
 void Roller::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
-    if (key == 'k') {
+    if (key == '1') {
         rotation.toggle();
     }
 }

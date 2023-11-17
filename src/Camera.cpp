@@ -7,10 +7,6 @@
 Camera::Camera(Vector3f eye, Vector3f center, Vector3f up, double aspectRatio)
         : eye(eye), center(center), up(up), aspectRatio(aspectRatio) {}
 
-void Camera::setEye(Vector3f newEye) {
-    this->eye = newEye;
-}
-
 void Camera::moveX(float d) {
     Vector3f right = up.cross(center - eye).unit();
     eye = eye + right * d;
@@ -60,4 +56,28 @@ void Camera::setup() const {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     look();
+}
+
+const Vector3f &Camera::getEye() const {
+    return eye;
+}
+
+void Camera::setEye(const Vector3f &newEye) {
+    eye = newEye;
+}
+
+const Vector3f &Camera::getCenter() const {
+    return center;
+}
+
+void Camera::setCenter(const Vector3f &newCenter) {
+    center = newCenter;
+}
+
+const Vector3f &Camera::getUp() const {
+    return up;
+}
+
+void Camera::setUp(const Vector3f &newUp) {
+    up = newUp;
 }

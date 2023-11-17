@@ -5,6 +5,20 @@
 
 class Camera {
     Vector3f eye, center, up;
+public:
+    [[nodiscard]] const Vector3f &getEye() const;
+
+    void setEye(const Vector3f &newEye);
+
+    [[nodiscard]] const Vector3f &getCenter() const;
+
+    void setCenter(const Vector3f &newCenter);
+
+    [[nodiscard]] const Vector3f &getUp() const;
+
+    void setUp(const Vector3f &newUp);
+
+private:
     double aspectRatio;
 public:
     Camera(Vector3f eye, Vector3f center, Vector3f up, double aspectRatio);
@@ -22,8 +36,6 @@ public:
     void look() const;
 
     void setup() const;
-
-    void setEye(Vector3f newEye);
 };
 
 

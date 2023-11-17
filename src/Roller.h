@@ -9,6 +9,8 @@ class Roller : public GameObject {
     AnimatingValue rotation{0, 360, 0.5};
 
 public:
+    Roller();
+
     void draw() override;
 
     void onIdle() override;

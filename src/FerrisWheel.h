@@ -3,11 +3,13 @@
 
 
 #include "GameObject.h"
+#include "AnimatingValue.h"
 
 class FerrisWheel : public GameObject {
-    bool shouldMove = false;
-    double rotation = 0;
+    AnimatingValue rotation;
 public:
+    explicit FerrisWheel();
+
     void draw() override;
 
     void onIdle() override;

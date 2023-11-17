@@ -8,10 +8,10 @@ class AnimatingValue {
     float speed;
     float direction = 1;
     bool animating = false;
-
+    bool twoWay;
 
 public:
-    AnimatingValue(float value, float max, float speed);
+    AnimatingValue(float value, float max, float speed, bool twoWay = false);
 
     void animate();
 

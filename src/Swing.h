@@ -3,13 +3,14 @@
 
 
 #include "GameObject.h"
+#include "AnimatingValue.h"
 
 class Swing : public GameObject {
 private:
-    float swingAngle = 0;
-    float animationSpeed = 1;
-    bool shouldRotate = false;
+    AnimatingValue swingAngle;
 public:
+    Swing();
+
     void draw() override;
 
     void onKeyPressed(unsigned char key, int mouseX, int mouseY) override;

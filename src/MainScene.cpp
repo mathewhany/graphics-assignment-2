@@ -8,71 +8,111 @@
 #include "Swing.h"
 #include "Roller.h"
 #include "Goal.h"
+#include "GameTimer.h"
+#include "GameOverScene.h"
 
 MainScene::MainScene() {
     gameObjects.push_back(
             (new Player)
-                ->withPosition({0, 0, 30})
+                    ->setPosition({0, 0, 27})
+                    ->setScale({0.8, 0.8, 0.8})
     );
 
     gameObjects.push_back(
             (new Ground)
-                    ->withScale({10, -1, 10})
+                    ->setScale({10, -1, 10})
     );
 
     gameObjects.push_back(
             (new FerrisWheel)
-                    ->withPosition({-10, 0, -10})
-                    ->withScale({0.8, 0.8, 0.8})
+                    ->setPosition({-20, 0, -20})
+                    ->setScale({0.8, 0.8, 0.8})
     );
 
     gameObjects.push_back(
             (new Fence)
-                    ->withPosition({0, 0, -30})
-                    ->withScale({1.4, 1.4, 1.4})
-                    ->withAngle({0, 90, 0})
+                    ->setPosition({0, 0, -30})
+                    ->setScale({1.4, 1.4, 1.4})
+                    ->setAngle({0, 90, 0})
     );
 
     gameObjects.push_back(
             (new Fence)
-                    ->withPosition({30, 0, 0})
-                    ->withScale({1.4, 1.4, 1.4})
+                    ->setPosition({30, 0, 0})
+                    ->setScale({1.4, 1.4, 1.4})
     );
 
     gameObjects.push_back(
             (new Fence)
-                    ->withPosition({-30, 0, 0})
-                    ->withScale({1.4, 1.4, 1.4})
+                    ->setPosition({-30, 0, 0})
+                    ->setScale({1.4, 1.4, 1.4})
     );
 
     gameObjects.push_back(
             (new Seesaw)
-                    ->withPosition({20, 0, 10})
-                    ->withAngle({0, 45, 0})
+                    ->setPosition({15, 0, 0})
     );
 
     gameObjects.push_back(
             (new Lamp)
-                    ->withPosition({-25, 0, 25})
-                    ->withScale({0.8, 0.8, 0.8})
+                    ->setPosition({20, 0, 20})
+                    ->setScale({0.8, 0.8, 0.8})
     );
 
     gameObjects.push_back(
             (new Swing)
-                    ->withPosition({25, 0, 25})
-                    ->withScale({0.8, 0.8, 0.8})
-                    ->withAngle({0, 45, 0})
+                    ->setPosition({-20, 0, 10})
+                    ->setScale({0.8, 0.8, 0.8})
     );
 
     gameObjects.push_back(
             (new Roller)
-                    ->withPosition({-15, 0, 10})
-                    ->withScale({0.8, 0.8, 0.8})
+                    ->setPosition({0, 0, -20})
+                    ->setScale({0.8, 0.8, 0.8})
     );
 
     gameObjects.push_back(
             (new Goal)
-                ->withScale({0.8, 0.8, 0.8})
-                ->withPosition({25, 0, -20})
+                    ->setScale({0.8, 0.8, 0.8})
+                    ->setPosition({25, 0, -20})
     );
+
+    camera.setEye({0, 30, 70});
+    camera.setCenter({0, 0, 0});
+    camera.setUp({0, 1, 0});
+
+    // Invisible Walls
+    gameObjects.push_back(
+            (new GameObject({1, 1, 1}))
+                    ->setPosition({-30, 0, 0})
+                    ->setScale({2, 3, 100})
+    );
+    gameObjects.push_back(
+            (new GameObject({1, 1, 1}))
+                    ->setPosition({30, 0, 0})
+                    ->setScale({2, 3, 100})
+    );
+    gameObjects.push_back(
+            (new GameObject({1, 1, 1}))
+                    ->setPosition({0, 0, -30})
+                    ->setScale({100, 3, 2})
+    );
+    gameObjects.push_back(
+            (new GameObject({1, 1, 1}))
+                    ->setPosition({0, 0, 30})
+                    ->setScale({100, 3, 2})
+    );
+
+    gameObjects.push_back(
+            (new GameTimer())
+                    ->setPosition({15, 25, -20})
+    );
+}
+
+void MainScene::onTimer(int value) {
+    GameScene::onTimer(value);
+
+    if (value > 60) {
+        Game::getInstance()->setScene(new GameOverScene());
+    }
 }

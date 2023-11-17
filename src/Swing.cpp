@@ -2,13 +2,18 @@
 #include "Swing.h"
 #include "utils.h"
 
+
+Swing::Swing()
+        : GameObject({15, 10, 10}),
+          swingAngle({0, 45, 1, true}) {}
+
 void Swing::draw() {
     glPushMatrix();
     glTranslatef(0, 5, 0);
 
     glPushMatrix();
     glTranslatef(0, 10, 0);
-    glRotated(swingAngle, 1, 0, 0);
+    glRotated(swingAngle.getValue(), 1, 0, 0);
     glTranslatef(0, -10, 0);
 
     // Draw the seat
@@ -60,16 +65,12 @@ void Swing::draw() {
 }
 
 void Swing::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
-    if (key == 'j') {
-        shouldRotate = !shouldRotate;
+    if (key == '3') {
+        swingAngle.toggle();
     }
 }
 
 void Swing::onIdle() {
-    if (shouldRotate) {
-        swingAngle += animationSpeed;
-        if (swingAngle > 45 || swingAngle < -45) {
-            animationSpeed *= -1;
-        }
-    }
+    swingAngle.animate();
 }
+

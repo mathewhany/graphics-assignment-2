@@ -1,8 +1,9 @@
 #include <GLUT/glut.h>
-#include <iostream>
 #include "Player.h"
 #include "utils.h"
 #include "Goal.h"
+#include "Game.h"
+#include "GameWinScene.h"
 
 Player::Player() : GameObject({3, 10, 3}) {}
 
@@ -109,9 +110,11 @@ void Player::draw() {
 void Player::onSpecialKeyPressed(int key, int mouseX, int mouseY) {
     switch (key) {
         case GLUT_KEY_UP:
+            latestMovement = FORWARD;
             smoothMoveBy(direction);
             break;
         case GLUT_KEY_DOWN:
+            latestMovement = BACKWARD;
             smoothMoveBy(direction * -1);
             break;
         case GLUT_KEY_LEFT:
@@ -132,5 +135,16 @@ void Player::onCollision(GameObject *&pObject) {
 
     if (goal != nullptr) {
         goal->setShowing(false);
+
+        Game::getInstance()->setScene(new GameWinScene());
+    }
+
+    switch (latestMovement) {
+        case FORWARD:
+            moveBy(direction * -1);
+            break;
+        case BACKWARD:
+            moveBy(direction);
+            break;
     }
 }

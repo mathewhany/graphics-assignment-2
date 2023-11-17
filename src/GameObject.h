@@ -19,11 +19,9 @@ public:
 public:
     explicit GameObject(Vector3f collisionBoxSize = {0, 0, 0});
 
-    virtual ~GameObject() = default;
+    ~GameObject() override = default;
 
-    virtual void draw() = 0;
-
-    void setPosition(const Vector3f &newPosition);
+    virtual void draw();
 
     virtual void onKeyPressed(unsigned char key, int mouseX, int mouseY);
 
@@ -32,8 +30,6 @@ public:
     virtual void onIdle();
 
     [[nodiscard]] const Vector3f &getAngle() const;
-
-    void setAngle(const Vector3f &newAngle);
 
     void rotateBy(const Vector3f &rotationAngle);
 
@@ -45,13 +41,11 @@ public:
 
     [[nodiscard]] const Vector3f &getScale() const;
 
-    void setScale(const Vector3f &newScale);
+    GameObject *setScale(const Vector3f &newScale);
 
-    GameObject *withScale(const Vector3f &newScale);
+    GameObject *setPosition(const Vector3f &newPosition);
 
-    GameObject *withPosition(const Vector3f &newPosition);
-
-    GameObject *withAngle(const Vector3f &newAngle);
+    GameObject *setAngle(const Vector3f &newAngle);
 
     void smoothRotateBy(const Vector3f &newAngle);
 
@@ -60,6 +54,8 @@ public:
     [[nodiscard]] bool isShowing() const;
 
     void setShowing(bool newShowing);
+
+    virtual void onTimer(int value);
 };
 
 

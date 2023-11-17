@@ -3,8 +3,14 @@
 
 #include "GameObject.h"
 
+enum PlayerMovement {
+    FORWARD,
+    BACKWARD
+};
+
 class Player : public GameObject {
-    Vector3f direction{0, 0, -1};
+    Vector3f direction{0, 0, -0.5};
+    PlayerMovement latestMovement;
 public:
     Player();
 

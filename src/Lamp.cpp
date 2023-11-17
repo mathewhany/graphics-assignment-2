@@ -2,6 +2,8 @@
 #include "Lamp.h"
 #include "utils.h"
 
+Lamp::Lamp() : GameObject({2, 15, 2}) {}
+
 void Lamp::draw() {
     glPushMatrix();
     glTranslated(0, 10, 0);
@@ -20,10 +22,10 @@ void Lamp::draw() {
     glutSolidCone(2, 2, 20, 20);
     glPopMatrix();
 
-    color(128 + 128 * colorBrightness, 128 + 128 * colorBrightness, 0);
+    color(128 + 128 * colorBrightness.getValue(), 128 + 128 * colorBrightness.getValue(), 0);
     glPushMatrix();
     glTranslated(0, 3, 0);
-    glScaled(1 + lampScale, 1 + lampScale, 1 + lampScale);
+    glScaled(1 + lampScale.getValue(), 1 + lampScale.getValue(), 1 + lampScale.getValue());
     glutSolidSphere(2, 255, 255);
     glPopMatrix();
 
@@ -31,20 +33,14 @@ void Lamp::draw() {
 }
 
 void Lamp::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
-    if (key == 'h') {
-        shouldAnimate = !shouldAnimate;
+    if (key == '4') {
+        colorBrightness.toggle();
+        lampScale.toggle();
     }
 }
 
 void Lamp::onIdle() {
-    if (shouldAnimate) {
-        colorBrightness += colorAnimationSpeed;
-        lampScale += scaleAnimationSpeed;
-        if (colorBrightness > 1 || colorBrightness < 0) {
-            colorAnimationSpeed *= -1;
-        }
-        if (lampScale > 0.3 || lampScale < 0) {
-            scaleAnimationSpeed *= -1;
-        }
-    }
+    colorBrightness.animate();
+    lampScale.animate();
 }
+

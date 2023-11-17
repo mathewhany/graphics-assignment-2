@@ -3,14 +3,14 @@
 
 
 #include "GameObject.h"
+#include "AnimatingValue.h"
 
 class Lamp : public GameObject {
-    double colorBrightness = 1;
-    bool shouldAnimate = false;
-    double colorAnimationSpeed = 0.01;
-    double lampScale = 0;
-    double scaleAnimationSpeed = 0.01;
+    AnimatingValue colorBrightness{1, 1, 0.01};
+    AnimatingValue lampScale{0, 0.3, 0.01};
 public:
+    Lamp();
+
     void draw() override;
 
     void onKeyPressed(unsigned char key, int mouseX, int mouseY) override;

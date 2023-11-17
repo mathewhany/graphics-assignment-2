@@ -5,7 +5,10 @@
 #include "GameObject.h"
 
 class Fence : public GameObject {
+    int currentColor = 0;
 public:
+    void onTimer(int value) override;
+
     void draw() override;
 };
 

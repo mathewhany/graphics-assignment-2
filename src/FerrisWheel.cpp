@@ -3,6 +3,10 @@
 #include "FerrisWheel.h"
 #include "utils.h"
 
+FerrisWheel::FerrisWheel()
+        : rotation({0, 360, 1}),
+          GameObject({20, 30, 15}) {}
+
 void drawStand() {
     glPushMatrix();
     glTranslated(5, 1, 0);
@@ -42,7 +46,7 @@ void FerrisWheel::draw() {
     color(0xFFFFFF);
     glPushMatrix();
     glTranslated(0, 10, 0);
-    glRotated(rotation, 0, 0, 1);
+    glRotated(rotation.getValue(), 0, 0, 1);
     glPushMatrix();
     glTranslated(0, 0, -4);
     for (int i = 0; i < 4; i++) {
@@ -102,15 +106,11 @@ void FerrisWheel::draw() {
 }
 
 void FerrisWheel::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
-    if (key == 'f') {
-        shouldMove = !shouldMove;
+    if (key == '5') {
+        rotation.toggle();
     }
 }
 
 void FerrisWheel::onIdle() {
-//    GameObject::onIdle();
-
-    if (shouldMove) {
-        rotation += 0.5;
-    }
+    rotation.animate();
 }

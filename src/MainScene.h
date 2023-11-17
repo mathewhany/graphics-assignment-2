@@ -6,6 +6,8 @@
 class MainScene : public GameScene {
 public:
     MainScene();
+
+    void onTimer(int value) override;
 };
 
 

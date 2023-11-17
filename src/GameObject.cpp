@@ -4,13 +4,8 @@
 GameObject::GameObject(Vector3f collisionBoxSize)
         : CollisionBox({0, 0, 0}, collisionBoxSize) {}
 
-void GameObject::setPosition(const Vector3f &newPosition) {
-    position = newPosition;
-    targetPosition = newPosition;
-}
-
 void GameObject::moveBy(const Vector3f &translation) {
-    position = position + translation;
+    setPosition(position + translation);
 }
 
 void GameObject::smoothMoveBy(const Vector3f &translation) {
@@ -72,11 +67,6 @@ const Vector3f &GameObject::getAngle() const {
     return angle;
 }
 
-void GameObject::setAngle(const Vector3f &newAngle) {
-    angle = newAngle;
-    targetAngle = newAngle;
-}
-
 void GameObject::smoothRotateTo(const Vector3f &newAngle) {
     targetAngle = newAngle;
 }
@@ -93,22 +83,23 @@ const Vector3f &GameObject::getScale() const {
     return scale;
 }
 
-void GameObject::setScale(const Vector3f &newScale) {
-    GameObject::scale = newScale;
-}
-
-GameObject *GameObject::withScale(const Vector3f &newScale) {
-    setScale(newScale);
+GameObject *GameObject::setScale(const Vector3f &newScale) {
+    scale = newScale;
+    size = {size.getX() * newScale.getX(),
+            size.getY() * newScale.getY(),
+            size.getZ() * newScale.getZ()};
     return this;
 }
 
-GameObject *GameObject::withPosition(const Vector3f &newPosition) {
-    setPosition(newPosition);
+GameObject *GameObject::setPosition(const Vector3f &newPosition) {
+    position = newPosition;
+    targetPosition = newPosition;
     return this;
 }
 
-GameObject *GameObject::withAngle(const Vector3f &newAngle) {
-    setAngle(newAngle);
+GameObject *GameObject::setAngle(const Vector3f &newAngle) {
+    angle = newAngle;
+    targetAngle = newAngle;
     return this;
 }
 
@@ -122,5 +113,13 @@ bool GameObject::isShowing() const {
 
 void GameObject::setShowing(bool newShowing) {
     showing = newShowing;
+}
+
+void GameObject::draw() {
+
+}
+
+void GameObject::onTimer(int value) {
+
 }
 

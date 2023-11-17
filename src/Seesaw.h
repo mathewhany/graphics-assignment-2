@@ -3,12 +3,13 @@
 
 
 #include "GameObject.h"
+#include "AnimatingValue.h"
 
 class Seesaw : public GameObject {
-    bool shouldMove = false;
-    double angle = 0;
-    double angleStep = 0.5;
+    AnimatingValue angle;
 public:
+    Seesaw();
+
     void draw() override;
 
     void onKeyPressed(unsigned char key, int mouseX, int mouseY) override;

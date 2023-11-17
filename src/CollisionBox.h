@@ -12,11 +12,15 @@ public:
 
     [[nodiscard]] Vector3f getPosition() const;
 
+    [[nodiscard]] Vector3f getStart() const;
+
     [[nodiscard]] Vector3f getSize() const;
 
     [[nodiscard]] Vector3f getEnd() const;
 
-    [[nodiscard]] bool isColliding(const CollisionBox &other);
+    [[nodiscard]] bool isColliding(const CollisionBox &other) const;
+
+    virtual ~CollisionBox() = default;
 };
 
 

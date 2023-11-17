@@ -2,6 +2,10 @@
 #include "Seesaw.h"
 #include "utils.h"
 
+Seesaw::Seesaw()
+        : GameObject({22, 5, 4}),
+          angle({0, 8, 0.5, true}) {}
+
 void drawSeesawStand() {
     color(0x0A8AFF);
     glPushMatrix();
@@ -57,7 +61,7 @@ void Seesaw::draw() {
 
     glPushMatrix();
     glTranslated(0, 0.75, 0);
-    glRotated(angle, 0, 0, 1);
+    glRotated(angle.getValue(), 0, 0, 1);
 
     glPushMatrix();
     glTranslated(9, 0.55, 0);
@@ -93,19 +97,11 @@ void Seesaw::draw() {
 }
 
 void Seesaw::onKeyPressed(unsigned char key, int mouseX, int mouseY) {
-    if (key == 'g') {
-        shouldMove = !shouldMove;
+    if (key == '2') {
+        angle.toggle();
     }
 }
 
 void Seesaw::onIdle() {
-    if (shouldMove) {
-        if (angle >= 8) {
-            angleStep = -0.5;
-        } else if (angle <= -8) {
-            angleStep = 0.5;
-        }
-
-        angle += angleStep;
-    }
+    angle.animate();
 }

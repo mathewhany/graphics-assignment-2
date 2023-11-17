@@ -4,13 +4,16 @@
 #include "Camera.h"
 #include "GameScene.h"
 
+class GameScene;
+
 class Game {
-    Camera camera;
-    GameScene *scene;
-    int windowWidth;
-    int windowHeight;
+    GameScene *scene{};
+    GameSettings *gameSettings;
+    static Game *instance;
+
+    explicit Game(GameSettings *gameSettings);
+
 public:
-    Game(Camera camera, GameScene *scene, int windowWidth, int windowHeight);
 
     void draw();
 
@@ -20,15 +23,15 @@ public:
 
     void onSpecialKeyPressed(int key, int mouseX, int mouseY);
 
-    [[nodiscard]] const int& getWindowWidth() const;
-
-    [[nodiscard]] const int& getWindowHeight() const;
-
     void init(int argc, char **argv) const;
 
-    void setupLights() const;
-
     void onIdle();
+
+    void onTimer(int value);
+
+    [[nodiscard]] GameSettings *getGameSettings() const;
+
+    static Game *getInstance(GameSettings *settings = nullptr);
 };
 
 
